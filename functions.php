@@ -7,4 +7,10 @@ function wcs_files(){
     wp_enqueue_style('wcs_extra_styles', get_theme_file_uri('/build/index.css'));
 }
 add_action('wp_enqueue_scripts', 'wcs_files');
-?>
+
+
+function wcs_features(){
+    add_theme_support('title-tag');
+}
+
+add_action('after_setup_theme', 'wcs_features');
