@@ -19,6 +19,30 @@ the_post();?>
       </div>
         <div class="generic-content"><?php the_content(); ?></div>
         <?php 
+$relatedInstructors = new WP_Query(array(
+  'posts_per_page' => -1,
+  'post_type' => 'instructor',
+  'orderby' => 'title',
+  'order' => 'ASC',
+  'meta_query' => array(
+    array(
+        'key' => 'related_programs',
+        'compare' => 'LIKE',
+        'value' =>'"' . get_the_ID() . '"'
+    )
+  )
+));
+if($relatedInstructors->have_posts()) {
+    echo '<hr class="section-break">';
+    echo '<h2 class="headline headline--medium">' . get_the_title() . ' Instructors</h2>';
+    while($relatedInstructors->have_posts()) {
+    $relatedInstructors->the_post(); ?>
+      <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+    <?php }
+}
+
+wp_reset_postdata();
+
 $today = date('Ymd');
 $homepageEvents = new WP_Query(array(
   'posts_per_page' => 2,
