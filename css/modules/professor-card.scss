@@ -38,11 +38,21 @@
     left: 0;
     right: 0;
     padding: 3px 10px;
-    background-color: adjust-color($darkOrange, $alpha: -0.15, $lightness: -9%, $saturation: -6%);
+    background-color: adjust-color(
+      $darkOrange,
+      $alpha: -0.15,
+      $lightness: -9%,
+      $saturation: -6%
+    );
   }
 
   &:hover &__name {
-    background-color: adjust-color($darkOrange, $alpha: -0.15, $lightness: -15%, $saturation: -6%);
+    background-color: adjust-color(
+      $darkOrange,
+      $alpha: -0.15,
+      $lightness: -15%,
+      $saturation: -6%
+    );
   }
 
   &__list-item {
