@@ -1,18 +1,14 @@
 <?php
-function pageBanner($args = [
-  'title' => null,
-  'subtitle' => null,
-  'image' => null
-]) {
-if (!$args['title']) {
+function pageBanner($args = NULL) {
+if (!isset($args['title'])){
 $args['title'] = get_the_title();
 }
 
-if (!$args['subtitle']) {
+if (!isset($args['subtitle'])) {
 $args['subtitle'] = get_field('page_banner_subtitle');
 }
-if (!$args['image']) {
-  if(get_field('page_banner_background_image')){
+if (!isset($args['image'])) {
+  if(get_field('page_banner_background_image') AND !is_archive() AND !is_home()){
     $args['image'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
   }
  else{
