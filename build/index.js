@@ -147,14 +147,14 @@ class Search {
         <h2 class="search-overlay__section-title">General Information</h2>
         ${results.generalInfo.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
         ${results.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == 'post' ? `by ${item.authorName}` : ''}</li>`).join('')}
-        
+
         ${results.generalInfo.length ? '</ul>' : ''}
         </div>
         <div class="one-third">
         <h2 class="search-overlay__section-title">Programs</h2>
         ${results.programs.length ? '<ul class="link-list min-list">' : `<p>No programs matches that search. <a href="${wcsData.root_url}/programs">View all programs.</a></p>`}
         ${results.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
-        
+
         ${results.programs.length ? '</ul>' : ''}
 
         <h2 class="search-overlay__section-title">Instructors</h2>
@@ -167,7 +167,7 @@ class Search {
     </a>
   </li>
             `).join('')}
-        
+
         ${results.instructors.length ? '</ul>' : ''}
         </div>
         <div class="one-third">
@@ -211,6 +211,7 @@ class Search {
     this.searchField.val('');
     setTimeout(() => this.searchField.focus(), 301);
     this.isOverlayOpen = true;
+    return false;
   }
   closeOverlay() {
     this.searchOverlay.removeClass('search-overlay--active');

@@ -64,7 +64,7 @@ class Search {
               }</li>`
           )
           .join('')}
-        
+
         ${results.generalInfo.length ? '</ul>' : ''}
         </div>
         <div class="one-third">
@@ -79,7 +79,7 @@ class Search {
             (item) => `<li><a href="${item.permalink}">${item.title}</a></li>`
           )
           .join('')}
-        
+
         ${results.programs.length ? '</ul>' : ''}
 
         <h2 class="search-overlay__section-title">Instructors</h2>
@@ -100,7 +100,7 @@ class Search {
             `
           )
           .join('')}
-        
+
         ${results.instructors.length ? '</ul>' : ''}
         </div>
         <div class="one-third">
@@ -159,6 +159,7 @@ class Search {
     this.searchField.val('');
     setTimeout(() => this.searchField.focus(), 301);
     this.isOverlayOpen = true;
+    return false;
   }
 
   closeOverlay() {
