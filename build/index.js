@@ -13,9 +13,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/MobileMenu */ "./src/modules/MobileMenu.js");
 /* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
 /* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.js");
+/* harmony import */ var _modules_MyNotes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/MyNotes */ "./src/modules/MyNotes.js");
 
 
 // Our modules / classes
+
 
 
 
@@ -23,6 +25,7 @@ __webpack_require__.r(__webpack_exports__);
 const mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default"]();
 const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
 const search = new _modules_Search__WEBPACK_IMPORTED_MODULE_3__["default"]();
+const myNotes = new _modules_MyNotes__WEBPACK_IMPORTED_MODULE_4__["default"]();
 
 /***/ }),
 
@@ -87,6 +90,63 @@ class MobileMenu {
   }
 }
 /* harmony default export */ __webpack_exports__["default"] = (MobileMenu);
+
+/***/ }),
+
+/***/ "./src/modules/MyNotes.js":
+/*!********************************!*\
+  !*** ./src/modules/MyNotes.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class MyNotes {
+  constructor() {
+    this.events();
+  }
+  events() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.delete-note').on('click', this.deleteNote);
+  }
+
+  //   deleteNote() {
+  //     $.ajax({
+  //       beforeSend: (xhr) => {
+  //         xhr.setRequestHeader('X-WP-Nonce', wcsData.nonce);
+  //       },
+  //       url: wcsData.root_url + 'wp-json/wp/v2/note/98',
+  //       type: 'DELETE',
+  //       success: (response) => {
+  //         console.log('congrats');
+  //         console.log(response);
+  //       },
+  //       error: () => {
+  //         console.log('sorry');
+  //         console.log(response);
+  //       },
+  //     });
+  //   }
+
+  async deleteNote(event) {
+    //console.log(event.target);
+    var thisNote = jquery__WEBPACK_IMPORTED_MODULE_0___default()(event.target).parents('li');
+    try {
+      console.log(event.target);
+      const deleteResponse = await fetch(`${wcsData.root_url}/wp-json/wp/v2/note/` + thisNote.data('id'), {
+        method: 'DELETE',
+        headers: {
+          'X-WP-Nonce': wcsData.nonce
+        }
+      });
+      return deleteResponse.json();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+/* harmony default export */ __webpack_exports__["default"] = (MyNotes);
 
 /***/ }),
 

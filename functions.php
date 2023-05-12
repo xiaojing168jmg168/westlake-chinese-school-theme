@@ -47,6 +47,7 @@ function wcs_files(){
 
     wp_localize_script('main-chinese-js', 'wcsData', array(
       'root_url' => get_site_url(),
+      'nonce' => wp_create_nonce('wp_rest')
     ));
 }
 add_action('wp_enqueue_scripts', 'wcs_files');
