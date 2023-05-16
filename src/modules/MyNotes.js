@@ -5,7 +5,7 @@ class MyNotes {
     this.events();
   }
   events() {
-    $('#my-notes').on('click', 'delete-note', this.deleteNote);
+    $('#my-notes').on('click', '.delete-note', this.deleteNote);
     $('#my-notes').on('click', '.edit-note', this.editNote.bind(this));
     $('#my-notes').on('click', '.update-note', this.updateNote.bind(this));
     $('.submit-note').on('click', this.createNote.bind(this));
@@ -44,13 +44,14 @@ class MyNotes {
     thisNote.find('.update-note').removeClass('update-note--visible');
     thisNote.data('state', 'cancel');
   }
+
   async deleteNote(event) {
-    //console.log(event.target);
-    var thisNote = $(event.target).parents('li');
+    // var thisNote = $(event.target).parents('li');
+    var thisNote = event.target.closest('li');
     try {
       console.log(event.target);
       const deleteResponse = await fetch(
-        `${wcsData.root_url}/wp-json/wp/v2/note/` + thisNote.data('id'),
+        `${wcsData.root_url}/wp-json/wp/v2/note/${thisNote.dataset.noteId}`,
         {
           method: 'DELETE',
           headers: {
@@ -58,7 +59,7 @@ class MyNotes {
           },
         }
       );
-      thisNote.slideUp();
+      thisNote.remove();
       return deleteResponse.json();
     } catch (err) {
       console.log(err);

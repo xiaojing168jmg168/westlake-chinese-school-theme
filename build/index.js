@@ -108,7 +108,7 @@ class MyNotes {
     this.events();
   }
   events() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#my-notes').on('click', 'delete-note', this.deleteNote);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#my-notes').on('click', '.delete-note', this.deleteNote);
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#my-notes').on('click', '.edit-note', this.editNote.bind(this));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#my-notes').on('click', '.update-note', this.updateNote.bind(this));
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submit-note').on('click', this.createNote.bind(this));
@@ -136,17 +136,17 @@ class MyNotes {
     thisNote.data('state', 'cancel');
   }
   async deleteNote(event) {
-    //console.log(event.target);
-    var thisNote = jquery__WEBPACK_IMPORTED_MODULE_0___default()(event.target).parents('li');
+    // var thisNote = $(event.target).parents('li');
+    var thisNote = event.target.closest('li');
     try {
       console.log(event.target);
-      const deleteResponse = await fetch(`${wcsData.root_url}/wp-json/wp/v2/note/` + thisNote.data('id'), {
+      const deleteResponse = await fetch(`${wcsData.root_url}/wp-json/wp/v2/note/${thisNote.dataset.noteId}`, {
         method: 'DELETE',
         headers: {
           'X-WP-Nonce': wcsData.nonce
         }
       });
-      thisNote.slideUp();
+      thisNote.remove();
       return deleteResponse.json();
     } catch (err) {
       console.log(err);
