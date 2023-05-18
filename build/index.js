@@ -140,13 +140,16 @@ class MyNotes {
     var thisNote = event.target.closest('li');
     try {
       console.log(event.target);
-      const deleteResponse = await fetch(`${wcsData.root_url}/wp-json/wp/v2/note/${thisNote.dataset.noteId}`, {
+      const deleteResponse = await fetch(`${wcsData.root_url}/wp-json/wp/v2/note/${thisNote.getAttribute('data-id')}`, {
         method: 'DELETE',
         headers: {
           'X-WP-Nonce': wcsData.nonce
         }
       });
       thisNote.remove();
+      // if (response.userNoteCount < 5) {
+      //   $('.note-limit-message').removeClass('active');
+      // }
       return deleteResponse.json();
     } catch (err) {
       console.log(err);
@@ -224,6 +227,10 @@ class MyNotes {
         newlyCreated.style.removeProperty('height');
       }, 450);
     } catch (e) {
+      if (typeof e.data === 'string' && e.data.trim() == 'You have reached your note limit.') {
+        document.querySelector('.note-limit-message').classList.add('active');
+      }
+      console.log('sorry');
       console.log(`ERROR: ${e}`);
     }
   }
