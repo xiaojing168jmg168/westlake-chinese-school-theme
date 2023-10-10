@@ -68,6 +68,7 @@ function wcs_features(){
     add_image_size('professorLandscape', 400, 260, true);
     add_image_size('professorPortrait', 900, 350, true);
     add_image_size('pageBanner', 1500, 350, true);
+    add_image_size('slideshowImage', 1900, 525, true);
 }
 
 add_action('after_setup_theme', 'wcs_features');
